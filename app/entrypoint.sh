@@ -12,4 +12,4 @@ npx prisma migrate dev --name init --skip-seed
 
 # アプリケーションを起動
 echo "🚀 Starting app..."
-npx tsx watch src/index.ts
+npm run dev
