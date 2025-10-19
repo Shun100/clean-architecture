@@ -87,3 +87,18 @@ docker compose run --rm app npx prisma migrate dev --name init
 
 docker compose up -d
 ```
+
+## コマンド
+
+- Prismaのスキーマ定義ファイル(`schema.prisma`)の内容をデータベースに反映する。
+  - `npx prisma db push`
+
+## メモ
+
+``` typescript
+  // 旧
+  import { PrismaClient } from '@prisma/client';
+
+  // 新
+  import { PrismaClient } from '../generated/prisma';
+```
