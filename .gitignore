@@ -6,5 +6,5 @@ app/node_modules
 app/package-lock.json
 
 # Prisma関連の生成物
-app/prisma
+app/prisma/*
 !app/prisma/schema.prisma
