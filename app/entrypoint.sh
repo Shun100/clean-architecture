@@ -6,9 +6,14 @@ set -e
 echo "🔧 Running Prisma generate..."
 npx prisma generate
 
-# 初回マイグレーション（migrate dev はDBに接続し、マイグレーションを適用）
-echo "🗃 Running Prisma migrate..."
-npx prisma migrate dev --name init --skip-seed
+# マイグレーションファイルが存在しない場合に作成
+if [ ! "$(ls -A prisma/migrations 2>/dev/null)" ]; then
+  echo "🆕 No migration files found. Creating initial migration..."
+  npx prisma migrate dev --name init --skip-seed
+else
+  echo "🗃 Resetting database to match migration history..."
+  npx prisma migrate reset --force --skip-seed
+fi
 
 # アプリケーションを起動
 echo "🚀 Starting app..."
