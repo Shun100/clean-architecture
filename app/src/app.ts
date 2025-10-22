@@ -1,5 +1,5 @@
 import express from 'express';
-import { BookController } from './presentation/bookController';
+import { BookController } from './layered-architecture/tight-coupling/presentation/bookController';
 
 const app = express();
 
