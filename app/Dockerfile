@@ -22,4 +22,4 @@ EXPOSE 3000
 
 # コンテナ起動後、TypeScriptファイルを実行
 RUN chmod +x ./entrypoint.sh
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["sh", "./entrypoint.sh"]
