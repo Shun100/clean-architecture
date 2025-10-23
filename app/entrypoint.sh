@@ -18,3 +18,5 @@ fi
 # アプリケーションを起動
 echo "🚀 Starting app..."
 npm run dev
+
+# npm test
