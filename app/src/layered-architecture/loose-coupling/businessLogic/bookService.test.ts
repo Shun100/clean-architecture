@@ -11,34 +11,57 @@ const mockBookRepository: jest.Mocked<BookRepositoryInterface> = {
   findById: jest.fn()
 };
 
+// テストデータ
+const testBook: Book = {
+  id: '1',
+  title: 'Test Book',
+  isAvailable: true,
+  createdAt: new Date(),
+  updatedAt: new Date()
+};
+
 describe('bookService', () => {
   let bookService: BookService;
 
-  // テスト実施前の前処理
+  /**
+   * テスト実施前の前処理
+   * 
+   * テスト対象のクラス'BookSercie'をインスタンス化する。
+   * このとき、DIでBookRepositoryInterfaceを注入するようにしていると、mockBookRespositoryを注入することが
+   * できるため、テストが容易になる。
+   * 逆に、BookService内で直接BookRepositoryをインスタンス化していると、DBが無いと動かないためテストできない。
+   */  
   beforeEach(() => bookService = new BookService(mockBookRepository));
 
-  // テスト実施後の後処理
-  afterEach(() => jest.clearAllMocks()); // 全てのモックの状態をリセット
+  /**
+   * テスト実施後の後処理
+   * 
+   * 全てのモックの状態をリセットする。
+   */
+  afterEach(() => jest.clearAllMocks());
 
-  // テストケース
+  // テストケース1: 書籍登録 成功
   it('書籍登録 成功', async () => {
-    // テストデータ
-    const testBook: Book = {
-      id: '1',
-      title: 'Test Book',
-      isAvailable: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
     /**
      * モック関数の戻り値を設定する
-     * ここでは上記のテストデータを返すよう設定する
+     * ここではテストデータを返すよう設定する
      */
     mockBookRepository.create.mockResolvedValue(testBook);
 
-    // テストの実行
+    // テスト実行
     const result = await bookService.add('Test Book');
+    // 戻り値の一致確認 オブジェクトの比較はtoBeではなくtoEqualを使用する
     expect(result).toEqual(testBook);
-    expect(mockBookRepository.create).toHaveBeenCalledWith('Test Book'); // 指定した引数で呼ばれたことの確認
+    // mockBookRepositoryに正しい引数を渡していることの確認
+    expect(mockBookRepository.create).toHaveBeenCalledWith('Test Book');
+  });
+
+  // テストケース2: 書籍検索 成功
+  it('書籍検索 成功', async () => {
+    mockBookRepository.findById.mockResolvedValue(testBook);
+
+    const result = await bookService.findById('1');
+    expect(result).toEqual(testBook);
+    expect(mockBookRepository.findById).toHaveBeenCalledWith('1');
   });
 });

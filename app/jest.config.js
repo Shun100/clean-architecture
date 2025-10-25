@@ -8,5 +8,5 @@ export default {
     },
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
-  testMatch: ['<rootDir>/tests/*.test.ts'],
+  testMatch: ['<rootDir>/tests/*.test.ts', '<rootDir>/src/**/*.test.ts'],
 };
