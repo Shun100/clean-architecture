@@ -14,11 +14,21 @@ export class Book {
   get createdAt(): Date       { return this._createdAt }
   get updatedAt(): Date       { return this._updatedAt }
 
-  loan() {
-    if (this.isAvailable) {
+  borrow() {
+    if (this._isAvailable) {
       this._isAvailable = false;
     } else {
-      throw new Error('この本は既に貸し出し中です')
+      throw new Error('この本は既に貸し出し中です');
     }
   }
+
+  return() {
+    if (this._isAvailable) {
+      throw new Error('この本は既に返却済みです');
+    } else {
+      this._isAvailable = true;
+    }
+  }
+
+
 }
