@@ -1,27 +1,26 @@
 import { PrismaClient } from '@prisma/client';
-import { Book } from '../../domain/entities/book';
+import { BookEntity } from '../../domain/entities/bookEntity';
 import { BookRepositoryInterface } from '../../domain/repositories/bookRepositoryInterface';
 
 export class BookRepository implements BookRepositoryInterface {
   constructor(private readonly prisma: PrismaClient) {}
 
-  async create(book: Book): Promise<Book> {
-    const createdBook = await this.prisma.book.create({
+  /**
+   * 書籍登録
+   * @param { BookEntity } newBookEntity - 登録する書籍情報
+   * @returns { Promise<createdBookEntity> } promiseBookEntity - 登録した書籍情報
+   */
+  async create(newBookEntity: BookEntity): Promise<BookEntity> {
+    const createdBookEntity = await this.prisma.book.create({
       data: {
-        id: book.title,
-        title: book.title,
-        isAvailable: book.isAvailable,
-        createdAt: book.createdAt,
-        updatedAt: book.updatedAt
+        id: newBookEntity.id,
+        title: newBookEntity.title,
+        isAvailable: newBookEntity.isAvailable,
+        createdAt: newBookEntity.createdAt,
+        updatedAt: newBookEntity.updatedAt
       }
     });
 
-    return new Book(
-      createdBook.id,
-      createdBook.title,
-      createdBook.isAvailable,
-      createdBook.createdAt,
-      createdBook.updatedAt
-    );
+    return createdBookEntity;
   }
 }

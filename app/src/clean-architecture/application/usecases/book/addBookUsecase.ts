@@ -1,8 +1,9 @@
 import { IdGeneratorInterface } from '../../../domain/utils/idGeneratorInterface';
 import { AddBookRequestDto } from '../../dtos/book/addBookRequestDto';
+import { AddBookResponseDto } from '../../dtos/book/addBookResponseDto';
 import { AddBookUsecaseInterface } from './addBookUsecaseInterface';
 import { BookRepositoryInterface } from '../../../domain/repositories/bookRepositoryInterface';
-import { Book } from '../../../domain/entities/book';
+import { BookEntity } from '../../../domain/entities/bookEntity';
 
 export class AddBookUsecase implements AddBookUsecaseInterface {
   constructor(
@@ -10,18 +11,23 @@ export class AddBookUsecase implements AddBookUsecaseInterface {
     private readonly idGenerator: IdGeneratorInterface
   ) {}
   
-  async execute(requestDto: AddBookRequestDto) {
+  /**
+   * 書籍登録
+   * @param { AddBookRequestDto } requestDto
+   * @returns { Promise<AddBookResponseDto> } promiseResponseDto
+   */
+  async execute(requestDto: AddBookRequestDto): Promise<AddBookResponseDto> {
     const id = this.idGenerator.generate();
-    const newBook = new Book(id, requestDto.title);
+    const newBookEntity = new BookEntity(id, requestDto.title);
 
-    const createdBook = await this.bookRepository.create(newBook);
+    const createdBookEntity = await this.bookRepository.create(newBookEntity);
 
     return {
-      id: createdBook.id,
-      title: createdBook.title,
-      isAvailable: createdBook.isAvailable,
-      createdAt: createdBook.createdAt,
-      updatedAt: createdBook.updatedAt
+      id: createdBookEntity.id,
+      title: createdBookEntity.title,
+      isAvailable: createdBookEntity.isAvailable,
+      createdAt: createdBookEntity.createdAt,
+      updatedAt: createdBookEntity.updatedAt
     }
   }
 }

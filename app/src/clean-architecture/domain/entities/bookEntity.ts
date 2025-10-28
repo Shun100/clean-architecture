@@ -1,4 +1,4 @@
-export class Book {
+export class BookEntity {
   constructor(
     private _id: string,
     private _title: string,

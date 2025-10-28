@@ -8,11 +8,14 @@ import { bookRoutes } from './routers/bookRouter';
 
 const app = express();
 
+// expressサーバがJSONデータを返す用の設定
 app.use(express.json());
 
+// 外部インスタンス
 const prisma = new PrismaClient();
 const uuidGenerator = new UuidGenerator();
 
+// 内部インスタンス
 const bookRepository = new BookRepository(prisma);
 const addBookUsecase = new AddBookUsecase(bookRepository, uuidGenerator);
 const bookController = new BookController(addBookUsecase);

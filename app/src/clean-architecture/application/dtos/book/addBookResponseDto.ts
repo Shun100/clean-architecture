@@ -1,7 +1,7 @@
 export interface AddBookResponseDto {
-  id: string;
-  title: string;
-  isAvailable: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  readonly id: string;
+  readonly title: string;
+  readonly isAvailable: boolean;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
 }
