@@ -1,9 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { BookEntity } from '../../domain/entities/bookEntity';
 import { BookRepositoryInterface } from '../../domain/repositories/bookRepositoryInterface';
+import { IdGeneratorInterface } from '../utils/idGeneratorInterface';
 
 export class BookRepository implements BookRepositoryInterface {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(
+    private readonly prisma: PrismaClient,
+    private readonly idGenerator: IdGeneratorInterface
+  ) {}
 
   /**
    * 書籍登録
@@ -13,8 +17,8 @@ export class BookRepository implements BookRepositoryInterface {
   async create(newBookEntity: BookEntity): Promise<BookEntity> {
     const createdBookEntity = await this.prisma.book.create({
       data: {
-        id: newBookEntity.id,
         title: newBookEntity.title,
+        id: this.idGenerator.generate(),
         isAvailable: newBookEntity.isAvailable,
         createdAt: newBookEntity.createdAt,
         updatedAt: newBookEntity.updatedAt

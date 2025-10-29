@@ -1,15 +1,15 @@
 export class BookEntity {
   constructor(
-    private _id: string,
     private _title: string,
+    private _id: string = "",
     private _isAvailable: boolean = true,
     private _createdAt: Date = new Date(),
     private _updatedAt: Date = new Date()
   ) {}
 
   // TypeScriptではgetterは`get`で定義する
+  get title(): string         { return this._title}
   get id(): string            { return this._id}
-  get title(): string         { return this._title }
   get isAvailable(): boolean  { return this._isAvailable }
   get createdAt(): Date       { return this._createdAt }
   get updatedAt(): Date       { return this._updatedAt }
@@ -29,6 +29,4 @@ export class BookEntity {
       this._isAvailable = true;
     }
   }
-
-
 }

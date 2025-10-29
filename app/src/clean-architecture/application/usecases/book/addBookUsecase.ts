@@ -1,4 +1,4 @@
-import { IdGeneratorInterface } from '../../../domain/utils/idGeneratorInterface';
+import { IdGeneratorInterface } from '../../../adapter/utils/idGeneratorInterface';
 import { AddBookRequestDto } from '../../dtos/book/addBookRequestDto';
 import { AddBookResponseDto } from '../../dtos/book/addBookResponseDto';
 import { AddBookUsecaseInterface } from './addBookUsecaseInterface';
@@ -18,13 +18,13 @@ export class AddBookUsecase implements AddBookUsecaseInterface {
    */
   async execute(requestDto: AddBookRequestDto): Promise<AddBookResponseDto> {
     const id = this.idGenerator.generate();
-    const newBookEntity = new BookEntity(id, requestDto.title);
+    const newBookEntity = new BookEntity(requestDto.title);
 
     const createdBookEntity = await this.bookRepository.create(newBookEntity);
 
     return {
-      id: createdBookEntity.id,
       title: createdBookEntity.title,
+      id: createdBookEntity.id,
       isAvailable: createdBookEntity.isAvailable,
       createdAt: createdBookEntity.createdAt,
       updatedAt: createdBookEntity.updatedAt
