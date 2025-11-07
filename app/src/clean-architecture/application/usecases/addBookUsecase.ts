@@ -1,9 +1,9 @@
-import { IdGeneratorInterface } from '../../../adapter/utils/idGeneratorInterface';
-import { AddBookRequestDto } from '../../dtos/book/addBookRequestDto';
-import { AddBookResponseDto } from '../../dtos/book/addBookResponseDto';
+import { IdGeneratorInterface } from '../../adapter/utils/idGeneratorInterface';
+import { AddBookRequestDto } from '../dtos/addBookRequestDto';
+import { AddBookResponseDto } from '../dtos/addBookResponseDto';
 import { AddBookUsecaseInterface } from './addBookUsecaseInterface';
-import { BookRepositoryInterface } from '../../../domain/repositories/bookRepositoryInterface';
-import { BookEntity } from '../../../domain/entities/bookEntity';
+import { BookRepositoryInterface } from '../../domain/repositories/bookRepositoryInterface';
+import { BookEntity } from '../../domain/entities/bookEntity';
 
 export class AddBookUsecase implements AddBookUsecaseInterface {
   constructor(

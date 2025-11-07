@@ -15,7 +15,7 @@ export class BookRepository implements BookRepositoryInterface {
    * @returns { Promise<createdBookEntity> } promiseBookEntity - 登録した書籍情報
    */
   async create(newBookEntity: BookEntity): Promise<BookEntity> {
-    const createdBookEntity = await this.prisma.book.create({
+    const createdBook = await this.prisma.book.create({
       data: {
         title: newBookEntity.title,
         id: this.idGenerator.generate(),
@@ -25,6 +25,21 @@ export class BookRepository implements BookRepositoryInterface {
       }
     });
 
-    return createdBookEntity;
+    return createdBook;
+  }
+
+  /**
+   * 書籍検索
+   * @param { string } id - 書籍ID 
+   * @returns { Promise<BookEntity | null> } promiseBookEntity - 検索にヒットした書籍情報 (Promiseオブジェクト)
+   */
+  async findById(id: string): Promise<BookEntity | null> {
+    const foundBook = await this.prisma.book.findById({
+      data: {
+        id
+      }
+    });
+
+    return foundBook;
   }
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AddBookUsecaseInterface } from "../../application/usecases/book/addBookUsecaseInterface";
-import { AddBookRequestDto } from '../../application/dtos/book/addBookRequestDto';
+import { AddBookRequestDto } from '../../application/dtos/addBookRequestDto';
 
 export class BookController {
   constructor(private readonly addBookUsecase: AddBookUsecaseInterface) {}
