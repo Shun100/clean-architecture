@@ -5,7 +5,7 @@ import { BookRepositoryInterface } from '../../domain/repositories/bookRepositor
 import { BookEntity } from "../../domain/entities/bookEntity";
 
 export class FindBookUsecase implements FindBookUsecaseInterface {
-  constructor(private readonly bookRepository: BookRepositoryInterface;) {}
+  constructor(private readonly bookRepository: BookRepositoryInterface) {}
 
   /**
    * 書籍検索

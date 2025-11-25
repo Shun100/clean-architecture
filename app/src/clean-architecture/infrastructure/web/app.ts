@@ -17,12 +17,10 @@ const prisma = new PrismaClient();
 const uuidGenerator = new UuidGenerator();
 
 // 内部インスタンス
-const bookRepository = new BookRepository(prisma);
-const addBookUsecase = new AddBookUsecase(bookRepository, uuidGenerator);
-const findBookUsecase = new FindBookUsecase(bookRepository);
+const bookRepository = new BookRepository(prisma, uuidGenerator);
 const bookController = new BookController(
-  addBookUsecase,
-  findBookUsecase
+  new AddBookUsecase(bookRepository),
+  new FindBookUsecase(bookRepository)
 );
 
 app.use('/clean-architecture/books', bookRoutes(bookController));

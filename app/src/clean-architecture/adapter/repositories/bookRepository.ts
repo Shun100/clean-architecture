@@ -25,7 +25,13 @@ export class BookRepository implements BookRepositoryInterface {
       }
     });
 
-    return createdBook;
+    return new BookEntity(
+      createdBook.title,
+      createdBook.id,
+      createdBook.isAvailable,
+      createdBook.createdAt,
+      createdBook.updatedAt
+    );
   }
 
   /**
@@ -34,12 +40,22 @@ export class BookRepository implements BookRepositoryInterface {
    * @returns { Promise<BookEntity | null> } promiseBookEntity - 検索にヒットした書籍情報 (Promiseオブジェクト)
    */
   async findById(id: string): Promise<BookEntity | null> {
-    const foundBook = await this.prisma.book.findById({
-      data: {
+    const foundBook = await this.prisma.book.findUnique({
+      where: {
         id
       }
     });
 
-    return foundBook;
+    if (foundBook) {
+      return new BookEntity(
+        foundBook.title,
+        foundBook.id,
+        foundBook.isAvailable,
+        foundBook.createdAt,
+        foundBook.updatedAt
+      );
+    } else {
+      return null;
+    }
   }
 }
