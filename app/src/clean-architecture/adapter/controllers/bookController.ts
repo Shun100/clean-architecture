@@ -13,7 +13,7 @@ export class BookController {
   async add(req: Request, res: Response) {
     try {
       const requestDto: AddBookRequestDto = {
-        title: req.body.title,
+        title: req.body.title as string,
       }
       const book = await this.addBookUsecase.execute(requestDto);
       res.status(201).json(book);
@@ -27,7 +27,7 @@ export class BookController {
   async findById(req: Request, res: Response) {
     try {
       const requestDto: FindBookRequestDto = {
-        id: req.body.id,
+        id: req.query.id as string,
       }
       const book = await this.findBookUsecase.execute(requestDto);
       res.status(200).json(book);

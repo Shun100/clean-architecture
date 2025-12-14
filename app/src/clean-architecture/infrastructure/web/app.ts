@@ -7,6 +7,9 @@ import { BookController } from '../../adapter/controllers/bookController';
 import { bookRoutes } from './routers/bookRouter';
 import { FindBookUsecase } from '../../application/usecases/findBookUsecase';
 
+// 環境変数に設定されているポート番号を使用する。（設定されていなければ3000番）
+const PORT = process.env.PORT || 3000;
+
 const app = express();
 
 // expressサーバがJSONデータを返す用の設定
@@ -24,3 +27,6 @@ const bookController = new BookController(
 );
 
 app.use('/clean-architecture/books', bookRoutes(bookController));
+
+// サーバの起動
+app.listen(PORT, () => console.log('Server is running'));
